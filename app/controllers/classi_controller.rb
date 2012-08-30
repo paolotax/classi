@@ -77,7 +77,7 @@ class ClassiController < ApplicationController
     @classe.destroy
 
     respond_to do |format|
-      format.html { redirect_to classi_url }
+      format.html { redirect_to :new_classi_inserter }
       format.json { head :no_content }
     end
   end

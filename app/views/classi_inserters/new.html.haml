@@ -1,7 +1,7 @@
 = form_for @classi_inserter do |f|
   .fields
     = f.label :classe
-    = f.text_field :classe
+    = f.select :classe, [1,2,3,4,5],{ prompt: "inserisci classe"}, {autofocus: "autofocus" }
   .fields
     = f.label :sezioni
     = f.text_field :sezioni
@@ -10,3 +10,29 @@
     = f.text_field :nr_alunni
   .actions
     = f.submit "Salva"
+    
+%br
+
+%h1 Listing classi
+
+%table
+  %tr
+    %th Cliente
+    %th Classe
+    %th Sezione
+    %th Nr alunni
+    %th
+    %th
+    %th
+
+  - @classi.each do |classe|
+    %tr
+      %td= classe.cliente_id
+      %td= classe.classe
+      %td= classe.sezione
+      %td= classe.nr_alunni
+      %td= link_to 'Show', classe
+      %td= link_to 'Edit', edit_classe_path(classe)
+      %td= link_to 'Destroy', classe, :method => :delete
+
+%br

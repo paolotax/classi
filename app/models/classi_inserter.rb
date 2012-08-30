@@ -7,7 +7,21 @@ class ClassiInserter
   attr_accessor :classe, :sezioni, :nr_alunni
   
   validates_presence_of :classe, :sezioni, :nr_alunni
-
+  
+  validates_format_of :sezioni, :with => /[a-zA-z]/, message: "cazzone carattere non valido"
+  
+  validate :check_sezioni
+  
+  def check_sezioni
+    sez_ar = self.sezioni.split("")
+    sez_ar.each do |sezione|
+      if self.sezioni.count(sezione) > 1
+        errors.add :sezioni, "errore"
+      end
+    end  
+  end
+  
+  
   def initialize(attributes = {})
     attributes.each do |name, value|
       send("#{name}=", value)
