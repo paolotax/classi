@@ -1,0 +1,12 @@
+= form_for @classi_inserter do |f|
+  .fields
+    = f.label :classe
+    = f.text_field :classe
+  .fields
+    = f.label :sezioni
+    = f.text_field :sezioni
+  .fields
+    = f.label :nr_alunni
+    = f.text_field :nr_alunni
+  .actions
+    = f.submit "Salva"

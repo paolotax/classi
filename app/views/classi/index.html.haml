@@ -1,0 +1,25 @@
+%h1 Listing classi
+
+%table
+  %tr
+    %th Cliente
+    %th Classe
+    %th Sezione
+    %th Nr alunni
+    %th
+    %th
+    %th
+
+  - @classi.each do |classe|
+    %tr
+      %td= classe.cliente_id
+      %td= classe.classe
+      %td= classe.sezione
+      %td= classe.nr_alunni
+      %td= link_to 'Show', classe
+      %td= link_to 'Edit', edit_classe_path(classe)
+      %td= link_to 'Destroy', classe, :method => :delete
+
+%br
+
+= link_to 'New Classe', new_classi_inserter_path

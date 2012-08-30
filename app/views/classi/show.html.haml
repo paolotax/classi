@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Cliente:
+  = @classe.cliente_id
+%p
+  %b Classe:
+  = @classe.classe
+%p
+  %b Sezione:
+  = @classe.sezione
+%p
+  %b Nr alunni:
+  = @classe.nr_alunni
+
+= link_to 'Edit', edit_classe_path(@classe)
+\|
+= link_to 'Back', classi_path

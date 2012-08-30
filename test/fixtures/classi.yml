@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cliente_id: 1
+  classe: 1
+  sezione: MyString
+  nr_alunni: MyString
+
+two:
+  cliente_id: 1
+  classe: 1
+  sezione: MyString
+  nr_alunni: MyString
