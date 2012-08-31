@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831064916) do
+ActiveRecord::Schema.define(:version => 20120831125147) do
 
   create_table "adozioni", :force => true do |t|
     t.integer  "classe_id"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20120831064916) do
     t.string   "titolo"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "classe"
   end
 
 end

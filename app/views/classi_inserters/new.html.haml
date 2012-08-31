@@ -1,29 +1,39 @@
-= form_for @classi_inserter do |f|
-  .fields
-    = f.label :classe
-    = f.select :classe, [1,2,3,4,5],{ prompt: "inserisci classe"}, {autofocus: "autofocus" }
-  .fields
-    = f.label :sezioni
-    = f.text_field :sezioni
-  .fields
-    = f.label :nr_alunni
-    = f.text_field :nr_alunni
-    
-  .fields
-    = hidden_field_tag "classi_inserter[libro_ids][]", nil
-    - Libro.all.each do |libro|
-      = check_box_tag "classi_inserter[libro_ids][]", libro.id, false, id: dom_id(libro)
-      = label_tag dom_id(libro), libro.titolo
-      %br
+= simple_form_for @classi_inserter do |f|
+  = f.input :classe, as: :select, collection: 1..5, prompt: "inserisci classe", autofocus: true
+  = f.input :sezioni, hint: "Inserisci la sezione (a-z) senza spazi e senza ripetizioni.</br>Le sezioni inserite verranno convertite in maiuscolo"
+  = f.input :nr_alunni, hint: "Inserisci il numero di alunni per sezione separati da spazio(es. 22 23 25) oppure il totale per classe"
+  
+  / simple form non riesco a mettere data-classe
+  / .input.collection_checkbox
+  /   %label Libri adottati
+  /   = f.collection_check_boxes :libro_ids, Libro.all, :id, :titolo
 
-  / .fields
-  /   = f.label :libro_id, "Libro"
-  /   = f.select :libro_id, Libro.all.collect {|p| [ p.titolo, p.id ] }, {:prompt => 'Select  Libro'}
+  .input.collection_checkbox
+    = hidden_field_tag "classi_inserter[libro_ids][]", nil
+    %label Libri adottati
+    - Libro.all.each do |libro|
+      %span.hidden{ data: { classe: "#{libro.classe}" } }
+        = check_box_tag "classi_inserter[libro_ids][]", libro.id, false, id: dom_id(libro)
+        = label_tag dom_id(libro), libro.titolo
+    %br
+    
   .actions
-    = f.submit "Salva"
+    = f.button :submit, label: "Salva"
     
 %br
 
+- adozioni_grouped = Adozione.includes(:libro).joins(:classe).order("classi.classe, classi.sezione").group_by(&:libro)
+
+%ul
+  - for libro, adozioni in adozioni_grouped do
+    %li
+      = libro.titolo
+      .pull-right
+        = adozioni.map {|c| c.classe.sezione}.join
+        |
+        / = adozioni.sum(&:nr_copie)
+        
+        
 %h1 Listing classi
 
 %table

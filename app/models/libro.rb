@@ -1,5 +1,5 @@
 class Libro < ActiveRecord::Base
-  attr_accessible :titolo
+  attr_accessible :titolo, :classe
   
   has_many :adozioni
   
