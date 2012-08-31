@@ -4,7 +4,7 @@ class ClassiInserter
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   
-  attr_accessor :classe, :sezioni, :nr_alunni, :libro_id
+  attr_accessor :classe, :sezioni, :nr_alunni, :libro_ids
   
   validates_presence_of :classe, :sezioni, :nr_alunni
   
@@ -61,7 +61,11 @@ class ClassiInserter
         sezione: m.keys[0].upcase,
         nr_alunni: m.values[0]
       )
-      nuova_classe.adozioni.create(libro_id: self.libro_id) if self.libro_id
+      if self.libro_ids
+        self.libro_ids.each do |libro|
+          nuova_classe.adozioni.create(libro_id: libro) unless libro.blank?
+        end  
+      end
     end  
   end  
 

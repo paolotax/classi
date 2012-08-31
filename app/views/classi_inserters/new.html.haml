@@ -8,9 +8,17 @@
   .fields
     = f.label :nr_alunni
     = f.text_field :nr_alunni
+    
   .fields
-    = f.label :libro_id, "Libro"
-    = f.select :libro_id, Libro.all.collect {|p| [ p.titolo, p.id ] }, {:prompt => 'Select  Libro'}
+    = hidden_field_tag "classi_inserter[libro_ids][]", nil
+    - Libro.all.each do |libro|
+      = check_box_tag "classi_inserter[libro_ids][]", libro.id, false, id: dom_id(libro)
+      = label_tag dom_id(libro), libro.titolo
+      %br
+
+  / .fields
+  /   = f.label :libro_id, "Libro"
+  /   = f.select :libro_id, Libro.all.collect {|p| [ p.titolo, p.id ] }, {:prompt => 'Select  Libro'}
   .actions
     = f.submit "Salva"
     
