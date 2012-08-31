@@ -8,6 +8,11 @@
   .fields
     = f.label :nr_alunni
     = f.text_field :nr_alunni
+  .fields
+    = f.label :libro_id, "Libro"
+    / = f.collection_select :libro_id, Libro.all, :id, :titolo, :prompt => true
+    
+    = f.select :libro_id, Libro.all.collect {|p| [ p.titolo, p.id ] }, {:prompt => 'Select  Libro'}
   .actions
     = f.submit "Salva"
     
@@ -25,14 +30,18 @@
     %th
     %th
 
-  - @classi.each do |classe|
+  - Classe.includes(:adozioni => :libro).all.each do |classe|
     %tr
       %td= classe.cliente_id
       %td= classe.classe
       %td= classe.sezione
       %td= classe.nr_alunni
+      %td= classe.adozioni.map { |a| a.libro }.join(", ") unless classe.adozioni.empty?
       %td= link_to 'Show', classe
       %td= link_to 'Edit', edit_classe_path(classe)
       %td= link_to 'Destroy', classe, :method => :delete
 
 %br
+
+
+

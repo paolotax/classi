@@ -1,0 +1,10 @@
+= simple_form_for(@adozione) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :classe_id
+    = f.input :libro_id
+    = f.input :nr_copie
+
+  .form-actions
+    = f.button :submit

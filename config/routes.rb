@@ -1,6 +1,10 @@
 Classi::Application.routes.draw do
   
   
+  resources :libri
+
+  resources :adozioni
+
   resources :classi
   
   resources :classi_inserters

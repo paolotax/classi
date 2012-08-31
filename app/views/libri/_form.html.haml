@@ -1,0 +1,8 @@
+= simple_form_for(@libro) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :titolo
+
+  .form-actions
+    = f.button :submit

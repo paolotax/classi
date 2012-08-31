@@ -1,0 +1,23 @@
+%h1 Listing adozioni
+
+%table
+  %tr
+    %th Classe
+    %th Libro
+    %th Nr copie
+    %th
+    %th
+    %th
+
+  - @adozioni.each do |adozione|
+    %tr
+      %td= adozione.classe_id
+      %td= adozione.libro_id
+      %td= adozione.nr_copie
+      %td= link_to 'Show', adozione
+      %td= link_to 'Edit', edit_adozione_path(adozione)
+      %td= link_to 'Destroy', adozione, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Adozione', new_adozione_path

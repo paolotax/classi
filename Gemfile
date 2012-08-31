@@ -23,6 +23,8 @@ end
 gem "haml-rails", ">= 0.3.4", group: :development
 gem 'jquery-rails'
 
+gem "simple_form"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

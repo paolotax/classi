@@ -2,9 +2,6 @@ class ClassiInsertersController < ApplicationController
 
   def new
     @classi_inserter = ClassiInserter.new
-    
-    @classi = Classe.all
-    
   end
   
   def create
