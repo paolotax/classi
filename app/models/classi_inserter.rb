@@ -56,12 +56,12 @@ class ClassiInserter
   
   def insert_classi
     self.sezioni_alunni_mappings.each_with_index do |m|
-      @classe = Classe.create(
+      nuova_classe = Classe.create(
         classe: self.classe,
         sezione: m.keys[0].upcase,
         nr_alunni: m.values[0]
       )
-      @classe.adozioni.create(libro_id: self.libro_id) if self.libro_id
+      nuova_classe.adozioni.create(libro_id: self.libro_id) if self.libro_id
     end  
   end  
 

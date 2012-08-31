@@ -10,8 +10,6 @@
     = f.text_field :nr_alunni
   .fields
     = f.label :libro_id, "Libro"
-    / = f.collection_select :libro_id, Libro.all, :id, :titolo, :prompt => true
-    
     = f.select :libro_id, Libro.all.collect {|p| [ p.titolo, p.id ] }, {:prompt => 'Select  Libro'}
   .actions
     = f.submit "Salva"
