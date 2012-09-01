@@ -24,40 +24,25 @@
 
 - adozioni_grouped = Adozione.includes(:libro).joins(:classe).order("classi.classe, classi.sezione").group_by(&:libro)
 
-%ul
-  - for libro, adozioni in adozioni_grouped do
-    %li
-      = libro.titolo
-      .pull-right
-        = adozioni.map {|c| c.classe.sezione}.join
-        |
-        / = adozioni.sum(&:nr_copie)
+- unless adozioni_grouped.empty?
+  %h2 Adozioni
+  %ul.adozioni
+    - for libro, adozioni in adozioni_grouped do
+      %li.classi-group
+        %span.classi= libro.classe.to_s + " " + adozioni.map {|c| c.classe.sezione}.join
+        %span.nr_alunni= adozioni.sum {|a| a.classe.nr_alunni}
+        %span.titolo= libro.titolo
+        %span= render "adozioni/destroy_all", adozioni: adozioni
         
-        
-%h1 Listing classi
 
-%table
-  %tr
-    %th Cliente
-    %th Classe
-    %th Sezione
-    %th Nr alunni
-    %th
-    %th
-    %th
-
-  - Classe.includes(:adozioni => :libro).all.each do |classe|
-    %tr
-      %td= classe.cliente_id
-      %td= classe.classe
-      %td= classe.sezione
-      %td= classe.nr_alunni
-      %td= classe.adozioni.map { |a| a.libro }.join(", ") unless classe.adozioni.empty?
-      %td= link_to 'Show', classe
-      %td= link_to 'Edit', edit_classe_path(classe)
-      %td= link_to 'Destroy', classe, :method => :delete
-
-%br
-
-
-
+- classi_grouped = Classe.order("classi.classe, classi.sezione").group_by(&:classe)
+- unless classi_grouped.empty?
+  %h2 Classi
+  %ul.classi
+    - for classe, sezioni in classi_grouped do
+      %li.classi-group
+        %span.classe= classe.to_s + " " + sezioni.map(&:sezione).join 
+        %span.nr_alunni= sezioni.sum(&:nr_alunni)
+        %span= render "classi/destroy_all", classi: sezioni
+    
+    

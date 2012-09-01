@@ -1,7 +1,6 @@
 
 class AdozioniController < ApplicationController
-  # GET /adozioni
-  # GET /adozioni.json
+
   def index
     @adozioni = Adozione.all
 
@@ -11,8 +10,6 @@ class AdozioniController < ApplicationController
     end
   end
 
-  # GET /adozioni/1
-  # GET /adozioni/1.json
   def show
     @adozione = Adozione.find(params[:id])
 
@@ -22,8 +19,6 @@ class AdozioniController < ApplicationController
     end
   end
 
-  # GET /adozioni/new
-  # GET /adozioni/new.json
   def new
     @adozione = Adozione.new
 
@@ -33,13 +28,10 @@ class AdozioniController < ApplicationController
     end
   end
 
-  # GET /adozioni/1/edit
   def edit
     @adozione = Adozione.find(params[:id])
   end
 
-  # POST /adozioni
-  # POST /adozioni.json
   def create
     @adozione = Adozione.new(params[:adozione])
 
@@ -54,8 +46,6 @@ class AdozioniController < ApplicationController
     end
   end
 
-  # PUT /adozioni/1
-  # PUT /adozioni/1.json
   def update
     @adozione = Adozione.find(params[:id])
 
@@ -70,15 +60,22 @@ class AdozioniController < ApplicationController
     end
   end
 
-  # DELETE /adozioni/1
-  # DELETE /adozioni/1.json
   def destroy
-    @adozione = Adozione.find(params[:id])
-    @adozione.destroy
+    @adozione = Adozione.destroy(params[:id])
 
     respond_to do |format|
       format.html { redirect_to adozioni_url }
       format.json { head :no_content }
     end
   end
+  
+  def destroy_all
+    @adozioni = Adozione.destroy(params[:adozioni][:adozione_ids])
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { head :no_content }
+    end
+  end
+
 end

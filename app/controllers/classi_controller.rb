@@ -1,7 +1,7 @@
 
 class ClassiController < ApplicationController
-  # GET /classi
-  # GET /classi.json
+
+
   def index
     @classi = Classe.all
 
@@ -11,8 +11,6 @@ class ClassiController < ApplicationController
     end
   end
 
-  # GET /classi/1
-  # GET /classi/1.json
   def show
     @classe = Classe.find(params[:id])
 
@@ -22,8 +20,6 @@ class ClassiController < ApplicationController
     end
   end
 
-  # GET /classi/new
-  # GET /classi/new.json
   def new
     @classe = Classe.new
 
@@ -33,13 +29,10 @@ class ClassiController < ApplicationController
     end
   end
 
-  # GET /classi/1/edit
   def edit
     @classe = Classe.find(params[:id])
   end
 
-  # POST /classi
-  # POST /classi.json
   def create
     @classe = Classe.new(params[:classe])
 
@@ -54,8 +47,6 @@ class ClassiController < ApplicationController
     end
   end
 
-  # PUT /classi/1
-  # PUT /classi/1.json
   def update
     @classe = Classe.find(params[:id])
 
@@ -70,8 +61,6 @@ class ClassiController < ApplicationController
     end
   end
 
-  # DELETE /classi/1
-  # DELETE /classi/1.json
   def destroy
     @classe = Classe.find(params[:id])
     @classe.destroy
@@ -81,4 +70,14 @@ class ClassiController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def destroy_all
+    @classi = Classe.destroy(params[:classi][:classe_ids])
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { head :no_content }
+    end
+  end
+  
 end

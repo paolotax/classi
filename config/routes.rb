@@ -3,9 +3,18 @@ Classi::Application.routes.draw do
   
   resources :libri
 
-  resources :adozioni
-
-  resources :classi
+  resources :adozioni do
+    collection do
+      post 'destroy_all'
+    end
+  end
+  
+  resources :classi do
+    collection do
+      post 'destroy_all'
+    end
+  end
+    
   
   resources :classi_inserters
   
